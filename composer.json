@@ -1,0 +1,24 @@
+{
+  "name": "blue-strawberry\/query-mule-examples",
+  "description": "...",
+  "authors": [
+    {
+      "name": "Fraser Reid",
+      "homepage": "https://freid001.github.io",
+      "role": "Developer"
+    }
+  ],
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "QueryMule\\Example\\": "src\/"
+    },
+    "classmap": [
+      "src/"
+    ]
+  },
+  "require": {
+    "php": ">=7.1",
+    "blue-strawberry\/query-mule" : "dev-refactor"
+  }
+}
