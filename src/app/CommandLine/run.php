@@ -9,65 +9,129 @@ use QueryMule\Example\Util\Album;
 
 require(__DIR__ . '/../../../vendor/autoload.php');
 
-// === Configure database handler ===
-$config = new Config();
-$config->setLogger(new Logger('chinook'));
-$config->setConfigs([
-    'sqlite' => [
-        DatabaseHandler::DATABASE_DRIVER => 'sqlite',
-        DatabaseHandler::DATABASE_DATABASE => 'main',
-        DatabaseHandler::DATABASE_PATH_TO_FILE => __DIR__ . '/../../../chinook.db',
-        DatabaseHandler::DATABASE_ADAPTER => DatabaseHandler::ADAPTER_PDO,
-    ]
-]);
+/**
+ * @return bool|\QueryMule\Query\Connection\Driver\DriverInterface
+ */
+function connection(){
+    $config = new Config();
+    $config->setLogger(new Logger('chinook'));
+    $config->setConfigs([
+        'sqlite' => [
+            DatabaseHandler::DATABASE_DRIVER => 'sqlite',
+            DatabaseHandler::DATABASE_DATABASE => 'main',
+            DatabaseHandler::DATABASE_PATH_TO_FILE => __DIR__ . '/../../../chinook.db',
+            DatabaseHandler::DATABASE_ADAPTER => DatabaseHandler::ADAPTER_PDO,
+        ]
+    ]);
 
-$driver = $config->dbh('sqlite')->driver();
-
-// === Fetch cli args ===
-array_shift($argv);
-
-$method = null;
-
-if(isset($argv[0])) {
-    $method = $argv[0];
-    unset($argv[0]);
+    try {
+        return $config->dbh('sqlite')->driver();
+    }catch (\Exception $e){
+        return false;
+    }
 }
 
-// === Implementation ===
+/**
+ * @param $args
+ * @return array
+ */
+function arguments($args) {
+    array_shift($args);
 
-$album = new Album($driver);
+    $ret = [
+        'commands' => [],
+        'options' => [],
+        'flags' => []
+    ];
 
-$response = null;
+    while ($arg = array_shift($args)) {
+        // Is it a command? (prefixed with --)
+        if (substr($arg, 0, 2) === '--') {
+            $value = "";
+            $com = substr($arg, 2);
+            // is it the syntax '--option=argument'?
+            if (strpos($com, '='))
+                list($com, $value) = explode("=",$com,2);
+            // is the option not followed by another option but by arguments
+            else if(strpos($args[0], '-') !== 0) {
+                $value = rtrim($value, ' ');
+            }
+            $ret['options'][$com] = !is_null($value) ? $value : true;
+            continue;
+        }
 
-// === Commands ===
-switch ($method)
+        // Is it a flag or a serial of flags? (prefixed with -)
+        if (substr($arg, 0, 1) === '-') {
+            for ($i = 1; isset($arg[$i]); $i++)
+                $ret['flags'][] = $arg[$i];
+            continue;
+        }
+
+        // finally, it is not option, nor flag, nor argument
+        $ret['commands'][] = $arg;
+        continue;
+    }
+
+    return $ret;
+}
+
+/**
+ * @param $driver
+ * @param array $arguments
+ * @return string
+ */
+function main($driver,array $arguments)
 {
+    if(!$driver) {
+        echo output(["error" => "Could not connect to database!"]);
+        exit;
+    }
 
-    case "fetch-albums":
-        $response = $album->fetch(
-            isset($argv[1]) ? (int)$argv[1] : null,
-            isset($argv[2]) ? (int)$argv[2] : null,
-            isset($argv[3]) ? (int)$argv[3] : null
-        );
-        break;
+    $album = new Album($driver);
 
-    case "post":
-        break;
+    $response = null;
+    switch (isset($arguments['commands'][0]) ? $arguments['commands'][0] : null)
+    {
+        case "fetch-albums":
+            $response = $album->fetch(
+                isset($arguments['options']['page']) ? (int)$arguments['options']['page']: null,
+                isset($arguments['options']['id']) ? (int)$arguments['options']['id'] : null,
+                isset($arguments['options']['title']) ? (string)$arguments['options']['title'] : null,
+                isset($arguments['options']['sort']) ? (string)$arguments['options']['sort'] : null
+            );
+            break;
 
-    case "put":
-        break;
+        case "put":
+            break;
 
-    case "delete":
-        break;
+        case "delete":
+            break;
 
-    default:
-        echo "Usage:\n";
-        echo "\tcommand [argument]\n\n";
-        echo "Commands: \n";
-        echo "\tget-albums \t Get albums.\n";
-        break;
+        default:
+            echo "Usage:\n";
+            echo "\tcommand [argument][option]\n\n";
+            echo "Commands: \n";
+            echo "\tfetch-albums \t Get albums.\n";
+            break;
+    }
+
+    if($response) {
+        echo output($response);
+    }
+
+    exit;
 }
 
-// === Output ===
-echo json_encode($response, JSON_PRETTY_PRINT);
-echo "\r\n";
+/**
+ * @param $value
+ * @return string
+ */
+function output($value)
+{
+    return json_encode($value, JSON_PRETTY_PRINT) . "\r\n";
+}
+
+/**
+ * Run app
+ */
+main(connection(),arguments($argv));

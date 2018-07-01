@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/blue-strawberry/query-mule.git",
-                "reference": "87c1835ca70c89c1890c05549028038b5d80f923"
+                "reference": "e08527c182b380e5d64818b2838cc7641dd5e7c3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/blue-strawberry/query-mule/zipball/87c1835ca70c89c1890c05549028038b5d80f923",
-                "reference": "87c1835ca70c89c1890c05549028038b5d80f923",
+                "url": "https://api.github.com/repos/blue-strawberry/query-mule/zipball/e08527c182b380e5d64818b2838cc7641dd5e7c3",
+                "reference": "e08527c182b380e5d64818b2838cc7641dd5e7c3",
                 "shasum": ""
             },
             "require": {
@@ -59,7 +59,7 @@
                 "query builder",
                 "sql"
             ],
-            "time": "2018-05-25T23:41:09+00:00"
+            "time": "2018-05-31T23:38:51+00:00"
         },
         {
             "name": "monolog/monolog",

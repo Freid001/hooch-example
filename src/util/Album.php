@@ -25,9 +25,10 @@ class Album{
      * @param int|null $page
      * @param int|null $id
      * @param null|string $title
+     * @param null|string $sort
      * @return mixed
      */
-    public function fetch(?int $page, ?int $id, ?string $title)
+    public function fetch(?int $page, ?int $id, ?string $title, ?string $sort = "desc")
     {
         $albums = new Albums($this->driver);
 
@@ -41,9 +42,10 @@ class Album{
             $albums->filterByAlbumTitle($title);
         }
 
+        $albums->sortByAlbumId($sort);
+
         $query->limit(10)->offset($page * 10);
 
         return $this->driver->fetchAll($query->build());
     }
-
 }

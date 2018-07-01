@@ -34,7 +34,19 @@ class Albums extends AbstractTable
      */
     public function filterByAlbumTitle($title) : FilterInterface
     {
-        return $this->filter->where('AlbumId', $this->filter->comparison()->greaterThan($title));
-        //return $this->filter->where('AlbumTitle', null, $this->filter->logical()->like($title));
+        return $this->filter->where('AlbumTitle', nill, $this->filter->logical()->like($title));
+    }
+
+    /**
+     * @param $sort
+     * @return \QueryMule\Query\Sql\Statement\SelectInterface
+     */
+    public function sortByAlbumId($sort)
+    {
+        if(in_array($sort,["asc","desc"])) {
+            return $this->select->orderBy("AlbumId",$sort);
+        }
+
+        return $this->select;
     }
 }
