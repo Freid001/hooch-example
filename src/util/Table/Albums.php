@@ -34,7 +34,7 @@ class Albums extends AbstractTable
      */
     public function filterByAlbumTitle($title) : FilterInterface
     {
-        return $this->filter->where('AlbumTitle', nill, $this->filter->logical()->like($title));
+        return $this->filter->where('AlbumTitle', null, $this->filter->logical()->like($title));
     }
 
     /**
