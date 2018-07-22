@@ -39,7 +39,7 @@ class Album{
         }
 
         if(!empty($title)){
-            $albums->filterByAlbumTitle($title);
+            $albums->filterByTitle($title);
         }
 
         $albums->sortByAlbumId($sort);

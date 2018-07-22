@@ -1,3 +1,4 @@
+#!/usr/bin/env php
 <?php
 
 namespace QueryMule\Example;
@@ -110,6 +111,12 @@ function main($driver,array $arguments)
         default:
             echo "Usage:\n";
             echo "\tcommand [argument][option]\n\n";
+            echo "Options: \n";
+            echo "\t--help \t\t Display the help message.\n";
+            echo "\t--page \t\t Specify the page number.\n";
+            echo "\t--id \t\t Set id.\n";
+            echo "\t--title \t Set title.\n";
+            echo "\t--sort \t\t Specify sort (asc|desc).\n";
             echo "Commands: \n";
             echo "\tfetch-albums \t Get albums.\n";
             break;

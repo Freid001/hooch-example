@@ -32,9 +32,9 @@ class Albums extends AbstractTable
      * @param $title
      * @return FilterInterface
      */
-    public function filterByAlbumTitle($title) : FilterInterface
+    public function filterByTitle($title) : FilterInterface
     {
-        return $this->filter->where('AlbumTitle', null, $this->filter->logical()->like($title));
+        return $this->filter->where('Title', null, $this->filter->logical()->like('%'.$title.'%'));
     }
 
     /**

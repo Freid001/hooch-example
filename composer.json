@@ -19,6 +19,6 @@
   },
   "require": {
     "php": ">=7.1",
-    "blue-strawberry\/query-mule" : "dev-refactor"
+    "blue-strawberry\/query-mule" : "dev-refactor#7d99d449a521648c429fbc846e9539b73166f78a"
   }
 }

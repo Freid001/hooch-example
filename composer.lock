@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "ab2e17b39ed3c255ead3842e63969b99",
+    "content-hash": "06334f17465d411b2bd5a1c65ccb4d3a",
     "packages": [
         {
             "name": "blue-strawberry/query-mule",
@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/blue-strawberry/query-mule.git",
-                "reference": "e08527c182b380e5d64818b2838cc7641dd5e7c3"
+                "reference": "7d99d449a521648c429fbc846e9539b73166f78a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/blue-strawberry/query-mule/zipball/e08527c182b380e5d64818b2838cc7641dd5e7c3",
-                "reference": "e08527c182b380e5d64818b2838cc7641dd5e7c3",
+                "url": "https://api.github.com/repos/blue-strawberry/query-mule/zipball/7d99d449a521648c429fbc846e9539b73166f78a",
+                "reference": "7d99d449a521648c429fbc846e9539b73166f78a",
                 "shasum": ""
             },
             "require": {
@@ -59,7 +59,7 @@
                 "query builder",
                 "sql"
             ],
-            "time": "2018-05-31T23:38:51+00:00"
+            "time": "2018-07-22T22:12:52+00:00"
         },
         {
             "name": "monolog/monolog",
