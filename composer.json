@@ -1,6 +1,5 @@
 {
-  "name": "blue-strawberry\/query-mule-examples",
-  "description": "...",
+  "name": "redstraw\/hooch-examples",
   "authors": [
     {
       "name": "Fraser Reid",
@@ -11,7 +10,8 @@
   "license": "MIT",
   "autoload": {
     "psr-4": {
-      "QueryMule\\Example\\": "src\/"
+      "Redstraw\\Hooch\\Example\\": "src\/",
+      "Test\\": "tests\/"
     },
     "classmap": [
       "src/"
@@ -19,6 +19,10 @@
   },
   "require": {
     "php": ">=7.1",
-    "blue-strawberry\/query-mule" : "dev-refactor#7d99d449a521648c429fbc846e9539b73166f78a"
+    "ext-pdo": "*",
+    "ext-json": "*",
+    "redstraw\/hooch" : "dev-master",
+    "behat/behat": "^3.5",
+    "imbo/behat-api-extension": "^2.1"
   }
 }

@@ -1,0 +1,93 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "org.ajoberstar.grgit:grgit-gradle:3.0.0-rc.3"
+    }
+    dependencies {
+        classpath 'mysql:mysql-connector-java:6.0.6'
+    }
+}
+
+import groovy.json.JsonSlurper
+
+plugins {
+    id "org.flywaydb.flyway" version "5.0.7"
+    id "org.ajoberstar.grgit" version "3.0.0-rc.3"
+}
+
+flyway {
+    url = dbHost
+    schemas = ['example']
+    table = "schema_history"
+    user = dbUserName
+    password = dbPassword
+    locations = ['filesystem:db']
+}
+
+//flywayClean.dependsOn = ["run"]
+//flywayMigrate.dependsOn = ["run"]
+
+def version = new File("VERSION").text
+def ghash = grgit.head().id
+
+def date() {
+    return new Date().format('yyyyMMdd HHmmssZ')
+}
+
+task incrementVersion {
+    doLast {
+        def versionFile = new File("VERSION")
+        def versionTuple = versionFile.text.tokenize(".").collect({s -> s.toInteger()})
+        versionTuple[2] += 1
+        versionFile.text = versionTuple.join(".")
+    }
+}
+
+task build {
+    doLast {
+        exec {
+            commandLine 'docker', 'build',
+                    '--build-arg', "VERSION=${version}",
+                    '--build-arg', "GHASH=${ghash}",
+                    '--build-arg', "BUILD_TIME=date()",
+                    '-t', "hooch_example:${version}", "${System.getProperty("user.dir")}"
+        }
+        exec {
+            commandLine 'docker', 'tag', "hooch_example:${version}", "hooch_example:latest"
+        }
+    }
+}
+
+task run {
+    dependsOn = ["build"]
+    doFirst {
+        exec {
+            commandLine 'docker-compose', 'up', "-d"
+        }
+    }
+}
+
+task stop {
+     doLast {
+         exec {
+             commandLine 'docker-compose', 'down'
+         }
+     }
+}
+
+task componentTest{
+    //dependsOn = ["flywayClean", "flywayMigrate"]
+    doLast {
+        exec {
+            environment "DB_DATABASE", "${dbName}"
+            environment "DB_USER", "${dbUserName}"
+            environment "DB_PASSWORD", "${dbPassword}"
+            commandLine 'vendor/bin/behat', '--config', 'behat.yml'
+        }
+    }
+}

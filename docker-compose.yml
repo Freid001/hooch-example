@@ -1,0 +1,44 @@
+version: "3"
+services:
+  hooch_example:
+    image: hooch_example:latest
+    command: start
+    ports:
+      - 8000:8000
+    depends_on:
+      - db
+    networks:
+      - hooch
+    environment:
+      DB_DATABASE: example
+      DB_HOST: db
+      DB_USER: user
+      DB_PASSWORD: abc123
+    container_name: hooch_example
+
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_DATABASE: example
+      MYSQL_USER: user
+      MYSQL_PASSWORD: abc123
+      MYSQL_ROOT_PASSWORD: abc123
+    ports:
+      - 3306:3306
+    networks:
+      - hooch
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      MYSQL_ROOT_PASSWORD: abc123
+    ports:
+      - 8080:80
+    depends_on:
+      - db
+    networks:
+      - hooch
+
+networks:
+  hooch:
+    driver: bridge
