@@ -1,21 +1,20 @@
 <?php
 
-include __DIR__ . '/../../driver/pdo.php';
+include __DIR__ . '/../../../setup.php';
 
 use Redstraw\Hooch\Query\Repository\Table\Table;
 use Redstraw\Hooch\Query\Sql\Statement\FilterInterface;
-use Redstraw\Hooch\Query\Sql\Operator\Operator;
 
-//SELECT * FROM `customer` WHERE `id` =?;
+//SELECT * FROM `customer` WHERE `id` NOT IN ( ?,? );
 $query = $driver->select()
     ->cols()
     ->from(Table::make($driver)->setName("customer"))
     ->filter(function(){
         /** @var FilterInterface $this */
-        $this->where('id', Operator::comparison()->equalTo(1));
+        $this->whereNotIn('id', [1,2,3]);
     })
     ->build();
 
 header('Content-Type: application/json');
 
-echo json_encode($driver->fetch($query));
+echo json_encode($driver->fetchAll($query));

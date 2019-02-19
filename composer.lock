@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "da729f5978ce5d50cfa99ffc89189b1c",
+    "content-hash": "3f3e9e29a78759c519a9919eaa81f05d",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -879,12 +879,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/redstraw/hooch.git",
-                "reference": "0957efbe69aa83fcd21f8c22a4b63ab50caba828"
+                "reference": "1aee04ab2b76f48c6691b2f33dd4db6d4104b998"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/redstraw/hooch/zipball/0957efbe69aa83fcd21f8c22a4b63ab50caba828",
-                "reference": "0957efbe69aa83fcd21f8c22a4b63ab50caba828",
+                "url": "https://api.github.com/repos/redstraw/hooch/zipball/1aee04ab2b76f48c6691b2f33dd4db6d4104b998",
+                "reference": "1aee04ab2b76f48c6691b2f33dd4db6d4104b998",
                 "shasum": ""
             },
             "require": {
@@ -929,7 +929,7 @@
                 "query builder",
                 "sql"
             ],
-            "time": "2019-02-10T21:04:05+00:00"
+            "time": "2019-02-19T20:37:36+00:00"
         },
         {
             "name": "symfony/class-loader",
@@ -1638,6 +1638,7 @@
     "platform": {
         "php": ">=7.1",
         "ext-pdo": "*",
+        "ext-mysqli": "*",
         "ext-json": "*"
     },
     "platform-dev": []

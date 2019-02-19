@@ -10,6 +10,7 @@ services:
     networks:
       - hooch
     environment:
+      DRIVER: pdo
       DB_DATABASE: example
       DB_HOST: db
       DB_USER: user
@@ -33,7 +34,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: abc123
     ports:
-      - 8080:80
+      - 8081:80
     depends_on:
       - db
     networks:

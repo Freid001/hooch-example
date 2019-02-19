@@ -1,14 +1,14 @@
 <?php
 
-include __DIR__ . '/../../driver/pdo.php';
+include __DIR__ . '/../../setup.php';
 
 use Redstraw\Hooch\Query\Repository\Table\Table;
 
-//SELECT `genre`, COUNT(*) as books FROM `book` GROUP BY `genre`;
+//SELECT * FROM `book` LIMIT 3;
 $query = $driver->select()
-    ->cols(['genre','books'=>'COUNT(*)'])
+    ->cols()
     ->from(Table::make($driver)->setName("book"))
-    ->groupBy('genre')
+    ->limit(3)
     ->build();
 
 header('Content-Type: application/json');

@@ -1,6 +1,6 @@
 <?php
 
-include __DIR__ . '/../../driver/pdo.php';
+include __DIR__ . '/../../setup.php';
 
 use Redstraw\Hooch\Query\Repository\Table\Table;
 use Redstraw\Hooch\Query\Sql\Sql;
