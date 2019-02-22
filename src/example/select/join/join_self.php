@@ -5,13 +5,21 @@ include __DIR__ . '/../../../setup.php';
 use Redstraw\Hooch\Query\Repository\Table\Table;
 use Redstraw\Hooch\Query\Sql\Statement\FilterInterface;
 
+$table = Table::make($driver)->setName("book");
+
 $query = $driver->select()
-    ->cols()
-    ->from(Table::make($driver)->setName("book"))
+    ->cols([
+        "id",
+        "book" => "name",
+    ], 'b')
+    ->cols([
+        "sequel" => "name",
+    ], 'bb')
+    ->from($table->setAlias("b"))
+    ->innerJoin($table->setAlias("bb"), 'b.sequel_id', $driver->operator()->comparison()->column()->equalTo('bb.id'))
     ->filter(function() {
         /** @var FilterInterface $this */
-        $this->where('name', $this->operator()->logical()->param()->like("murder%"));
-        $this->orWhereIn('genre', ["crime","detective"]);
+        $this->whereNot("bb.name", $this->operator()->comparison()->param()->equalTo(""));
     })
     ->build();
 

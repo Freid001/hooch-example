@@ -4,9 +4,9 @@ include __DIR__ . '/../../../setup.php';
 
 use Redstraw\Hooch\Query\Repository\Table\Table;
 
-//SELECT * FROM `book` AS `b` LEFT JOIN `author` AS `a` ON `a`.`id` = `b`.`author_id`;
 $query = $driver->select()
-    ->cols()
+    ->cols(["*"],"b")
+    ->cols(["first_name", "last_name"], "a")
     ->from(Table::make($driver)->setName("book")->setAlias("b"))
     ->leftJoin(
         Table::make($driver)->setName("author")->setAlias("a"),
@@ -17,4 +17,8 @@ $query = $driver->select()
 
 header('Content-Type: application/json');
 
-echo json_encode($driver->fetchAll($query));
+echo json_encode([
+    "query"         =>  $query->string(),
+    "parameters"    =>  $query->parameters(),
+    "result"        =>  $driver->fetchAll($query)
+]);

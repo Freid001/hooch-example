@@ -10,8 +10,8 @@ $query = $driver->select()
     ->from(Table::make($driver)->setName("book"))
     ->filter(function() {
         /** @var FilterInterface $this */
-        $this->where('name', $this->operator()->logical()->param()->like("murder%"));
-        $this->orWhereIn('genre', ["crime","detective"]);
+        $this->whereBetween('id', 1, 3);
+        $this->orWhereBetween('id', 3, 6);
     })
     ->build();
 

@@ -7,11 +7,10 @@ use Redstraw\Hooch\Query\Sql\Statement\FilterInterface;
 
 $query = $driver->select()
     ->cols()
-    ->from(Table::make($driver)->setName("book"))
+    ->from(Table::make($driver)->setName("customer"))
     ->filter(function() {
         /** @var FilterInterface $this */
-        $this->where('name', $this->operator()->logical()->param()->like("murder%"));
-        $this->orWhereIn('genre', ["crime","detective"]);
+        $this->whereNot('id', $this->operator()->comparison()->param()->equalTo(1));
     })
     ->build();
 
@@ -22,3 +21,4 @@ echo json_encode([
     "parameters"    =>  $query->parameters(),
     "result"        =>  $driver->fetchAll($query)
 ]);
+

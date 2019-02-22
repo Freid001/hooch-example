@@ -24,6 +24,8 @@ $query = new Query(
     new Accent()
 );
 
+$query->accent()->setSymbol('`');
+
 $logger = new Logger("hooch-example");
 
 $driver = new PdoDriver(

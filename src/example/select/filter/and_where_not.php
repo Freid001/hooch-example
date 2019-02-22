@@ -7,11 +7,11 @@ use Redstraw\Hooch\Query\Sql\Statement\FilterInterface;
 
 $query = $driver->select()
     ->cols()
-    ->from(Table::make($driver)->setName("book"))
-    ->filter(function() {
+    ->from(Table::make($driver)->setName("customer"))
+    ->filter(function(){
         /** @var FilterInterface $this */
-        $this->where('name', $this->operator()->logical()->param()->like("murder%"));
-        $this->orWhereIn('genre', ["crime","detective"]);
+        $this->whereIn('id', [1,2,3,4]);
+        $this->whereNot('first_name', $this->operator()->comparison()->param()->equalTo("john"));
     })
     ->build();
 

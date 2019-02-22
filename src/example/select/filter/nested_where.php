@@ -9,19 +9,23 @@ use Redstraw\Hooch\Query\Sql\Statement\FilterInterface;
 $query = $driver->select()
     ->cols()
     ->from(Table::make($driver)->setName("customer"))
-    ->filter(function() use ($driver){
+    ->filter(function(){
         /** @var FilterInterface $this */
-        $this->nestedWhere(function() use ($driver){
-            $this->where('first_name', $driver->operator()->comparison()->param()->equalTo("john"));
-            $this->where('last_name', $driver->operator()->comparison()->param()->equalTo("smith"));
+        $this->nestedWhere(function() {
+            $this->where('first_name', $this->operator()->comparison()->param()->equalTo("john"));
+            $this->where('last_name', $this->operator()->comparison()->param()->equalTo("smith"));
         });
-        $this->nestedWhere(function() use ($driver){
-            $this->orWhere('first_name', $driver->operator()->comparison()->param()->equalTo("millie"));
-            $this->orWhere('last_name', $driver->operator()->comparison()->param()->equalTo("brown"));
+        $this->nestedWhere(function() {
+            $this->orWhere('first_name', $this->operator()->comparison()->param()->equalTo("millie"));
+            $this->orWhere('last_name', $this->operator()->comparison()->param()->equalTo("brown"));
         });
     })
     ->build();
 
 header('Content-Type: application/json');
 
-echo json_encode($driver->fetchAll($query));
+echo json_encode([
+    "query"         =>  $query->string(),
+    "parameters"    =>  $query->parameters(),
+    "result"        =>  $driver->fetchAll($query)
+]);

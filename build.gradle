@@ -9,14 +9,14 @@ buildscript {
         classpath "org.ajoberstar.grgit:grgit-gradle:3.0.0-rc.3"
     }
     dependencies {
-        classpath 'mysql:mysql-connector-java:6.0.6'
+        classpath 'mysql:mysql-connector-java:8.0.15'
     }
 }
 
 import groovy.json.JsonSlurper
 
 plugins {
-    id "org.flywaydb.flyway" version "5.0.7"
+    id "org.flywaydb.flyway" version "5.2.4"
     id "org.ajoberstar.grgit" version "3.0.0-rc.3"
 }
 
@@ -39,13 +39,8 @@ def date() {
     return new Date().format('yyyyMMdd HHmmssZ')
 }
 
-task incrementVersion {
-    doLast {
-        def versionFile = new File("VERSION")
-        def versionTuple = versionFile.text.tokenize(".").collect({s -> s.toInteger()})
-        versionTuple[2] += 1
-        versionFile.text = versionTuple.join(".")
-    }
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.0'
 }
 
 task build {

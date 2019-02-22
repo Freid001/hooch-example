@@ -1,5 +1,3 @@
-#SET FOREIGN_KEY_CHECKS=0;
-
 CREATE DATABASE IF NOT EXISTS example;
 
 USE example;
@@ -26,6 +24,7 @@ CREATE TABLE IF NOT EXISTS `book`
 (
   `id`         int(11)      NOT NULL AUTO_INCREMENT,
   `author_id`  int(11)      NOT NULL,
+  `sequel_id`  int(11)      DEFAULT NULL,
   `name`       varchar(255) NOT NULL,
   `genre`       varchar(255) NOT NULL,
   PRIMARY KEY (id)
