@@ -3,20 +3,16 @@
 include __DIR__ . '/../../../setup.php';
 
 use Redstraw\Hooch\Query\Repository\Table\Table;
+use Redstraw\Hooch\Query\Statement\FilterInterface;
 use Redstraw\Hooch\Query\Field;
 
 $query = $driver->select()
-    ->cols([
-        Field::column("b.*"),
-        Field::column("a.first_name"),
-        Field::column("a.last_name")
-    ])
-    ->from(Table::make($driver)->setName("book")->setAlias("b"))
-    ->leftJoin(
-        Table::make($driver)->setName("author")->setAlias("a"),
-        Field::column('a.id'),
-        $driver->operator()->field()->eq(Field::column('b.author_id'))
-    )
+    ->cols()
+    ->from(Table::make($driver)->setName("book"))
+    ->filter(function(FilterInterface $f) {
+        $f->where(Field::column('author_id'), $f->operator()->param()->eq(2));
+        $f->whereNotBetween(Field::column('published'), '1980-01-30', '1984-01-01');
+    })
     ->build();
 
 header('Content-Type: application/json');

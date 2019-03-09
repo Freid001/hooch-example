@@ -1,9 +1,9 @@
 <?php
 
-use Redstraw\Hooch\Builder\Connection\Driver\MysqliDriver;
-use Redstraw\Hooch\Query\Sql\Query;
-use Redstraw\Hooch\Query\Sql\Sql;
-use Redstraw\Hooch\Query\Sql\Accent;
+use Redstraw\Hooch\Builder\Driver\MysqliDriver;
+use Redstraw\Hooch\Query\Query;
+use Redstraw\Hooch\Query\Sql;
+use Redstraw\Hooch\Query\Accent;
 use Monolog\Logger;
 
 $mysqli = new mysqli(

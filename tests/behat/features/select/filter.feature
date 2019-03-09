@@ -6,7 +6,7 @@ Feature: Filter
     Then the response body contains JSON:
     """
     {
-      "query":"SELECT * FROM `customer` WHERE `first_name` =? AND `last_name` =?  ",
+      "query":"SELECT `*` FROM `customer` WHERE `first_name` =? AND `last_name` =? ",
       "parameters":"@arrayLength(2)",
       "result":"@arrayLength(1)"
     }
@@ -18,9 +18,9 @@ Feature: Filter
     Then the response body contains JSON:
     """
     {
-      "query":"SELECT * FROM `book` WHERE `author_id` =? AND `id` BETWEEN ? AND ?  ",
+      "query":"SELECT `*` FROM `book` WHERE `author_id` =? AND `published` BETWEEN ? AND ? ",
       "parameters":"@arrayLength(3)",
-      "result":"@arrayLength(4)"
+      "result":"@arrayLength(2)"
     }
     """
 
@@ -30,7 +30,7 @@ Feature: Filter
     Then the response body contains JSON:
     """
     {
-      "query":"SELECT * FROM `customer` WHERE `id` IN ( ?,?,?,? ) AND NOT `first_name` =?   ",
+      "query":"SELECT `*` FROM `customer` WHERE `id` IN ( ?,?,?,? ) AND NOT `first_name` =? ",
       "parameters":"@arrayLength(5)",
       "result":"@arrayLength(3)"
     }
@@ -42,9 +42,9 @@ Feature: Filter
     Then the response body contains JSON:
     """
     {
-      "query":"SELECT * FROM `book` WHERE `genre` =? OR `genre` =?  ",
+      "query":"SELECT `*` FROM `book` WHERE `genre` =? OR `genre` =? ",
       "parameters":"@arrayLength(2)",
-      "result":"@arrayLength(7)"
+      "result":"@arrayLength(6)"
     }
     """
 
@@ -54,9 +54,9 @@ Feature: Filter
     Then the response body contains JSON:
     """
     {
-      "query":"SELECT * FROM `book` WHERE `id` BETWEEN ? AND ? OR `id` BETWEEN ? AND ?  ",
+      "query":"SELECT `*` FROM `book` WHERE `published` BETWEEN ? AND ? OR `published` BETWEEN ? AND ? ",
       "parameters":"@arrayLength(4)",
-      "result":"@arrayLength(6)"
+      "result":"@arrayLength(10)"
     }
     """
 
@@ -66,7 +66,7 @@ Feature: Filter
     Then the response body contains JSON:
     """
     {
-      "query":"SELECT * FROM `book` WHERE `name` LIKE ?  OR `genre` IN ( ?,? )  ",
+      "query":"SELECT `*` FROM `book` WHERE `name` LIKE ? OR `genre` IN ( ?,? ) ",
       "parameters":"@arrayLength(3)",
       "result":"@arrayLength(4)"
     }
@@ -78,7 +78,7 @@ Feature: Filter
     Then the response body contains JSON:
     """
     {
-      "query":"SELECT * FROM `book` WHERE `name` LIKE ?  OR NOT `genre` IN ( ?,?,?,?,?,? )   ",
+      "query":"SELECT `*` FROM `book` WHERE `name` LIKE ? OR NOT `genre` IN ( ?,?,?,?,?,? ) ",
       "parameters":"@arrayLength(7)",
       "result":"@arrayLength(4)"
     }
@@ -90,7 +90,7 @@ Feature: Filter
     Then the response body contains JSON:
     """
     {
-      "query":"SELECT * FROM `customer` WHERE `id` =?  ",
+      "query":"SELECT `*` FROM `customer` WHERE `id` =? ",
       "parameters":"@arrayLength(1)",
       "result":"@arrayLength(1)"
     }
@@ -102,9 +102,9 @@ Feature: Filter
     Then the response body contains JSON:
     """
     {
-      "query":"SELECT * FROM `book` WHERE `id` BETWEEN ? AND ?  ",
+      "query":"SELECT `*` FROM `book` WHERE `published` BETWEEN ? AND ? ",
       "parameters":"@arrayLength(2)",
-      "result":"@arrayLength(5)"
+      "result":"@arrayLength(9)"
     }
     """
 
@@ -114,7 +114,7 @@ Feature: Filter
     Then the response body contains JSON:
     """
     {
-      "query":"SELECT * FROM `customer` WHERE `id` IN ( ?,?,? )  ",
+      "query":"SELECT `*` FROM `customer` WHERE `id` IN ( ?,?,? ) ",
       "parameters":"@arrayLength(3)",
       "result":"@arrayLength(3)"
     }
@@ -126,7 +126,7 @@ Feature: Filter
     Then the response body contains JSON:
     """
     {
-      "query":"SELECT * FROM `customer` WHERE NOT `id` =?  ",
+      "query":"SELECT `*` FROM `customer` WHERE NOT `id` =? ",
       "parameters":"@arrayLength(1)",
       "result":"@arrayLength(3)"
     }
@@ -138,9 +138,9 @@ Feature: Filter
     Then the response body contains JSON:
     """
     {
-      "query":"SELECT * FROM `book` WHERE NOT `id` BETWEEN ? AND ?  ",
+      "query":"SELECT `*` FROM `book` WHERE NOT `published` BETWEEN ? AND ? ",
       "parameters":"@arrayLength(2)",
-      "result":"@arrayLength(17)"
+      "result":"@arrayLength(12)"
     }
     """
 
@@ -150,7 +150,7 @@ Feature: Filter
     Then the response body contains JSON:
     """
     {
-      "query":"SELECT * FROM `customer` WHERE NOT `id` IN ( ?,?,? )  ",
+      "query":"SELECT `*` FROM `customer` WHERE NOT `id` IN ( ?,?,? ) ",
       "parameters":"@arrayLength(3)",
       "result":"@arrayLength(1)"
     }

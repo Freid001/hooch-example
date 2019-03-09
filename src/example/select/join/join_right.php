@@ -3,22 +3,26 @@
 include __DIR__ . '/../../../setup.php';
 
 use Redstraw\Hooch\Query\Repository\Table\Table;
+use Redstraw\Hooch\Query\Field;
 
 $query = $driver->select()
-    ->cols(["*"],"b")
-    ->cols(["first_name", "last_name"], "a")
+    ->cols([
+        Field::column("b.*"),
+        Field::column("a.first_name"),
+        Field::column("a.last_name")
+    ])
     ->from(Table::make($driver)->setName("book")->setAlias("b"))
     ->rightJoin(
         Table::make($driver)->setName("author")->setAlias("a"),
-        'a.id',
-        $driver->operator()->comparison()->column()->equalTo('b.author_id')
+        Field::column('a.id'),
+        $driver->operator()->field()->eq(Field::column('b.author_id'))
     )
     ->build();
 
 header('Content-Type: application/json');
 
 echo json_encode([
-    "query"         =>  $query->string(),
+    "query"         =>  $query->queryString(),
     "parameters"    =>  $query->parameters(),
     "result"        =>  $driver->fetchAll($query)
 ]);

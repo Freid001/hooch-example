@@ -3,22 +3,22 @@
 include __DIR__ . '/../../../setup.php';
 
 use Redstraw\Hooch\Query\Repository\Table\Table;
-use Redstraw\Hooch\Query\Sql\Statement\FilterInterface;
+use Redstraw\Hooch\Query\Statement\FilterInterface;
+use Redstraw\Hooch\Query\Field;
 
 $query = $driver->select()
     ->cols()
     ->from(Table::make($driver)->setName("book"))
-    ->filter(function() {
-        /** @var FilterInterface $this */
-        $this->where('author_id', $this->operator()->comparison()->param()->equalTo(2));
-        $this->whereBetween('id', 1, 22);
+    ->filter(function(FilterInterface $f) {
+        $f->where(Field::column('author_id'), $f->operator()->param()->eq(2));
+        $f->whereBetween(Field::column('published'), '1980-01-30', '1985-01-01');
     })
     ->build();
 
 header('Content-Type: application/json');
 
 echo json_encode([
-    "query"         =>  $query->string(),
+    "query"         =>  $query->queryString(),
     "parameters"    =>  $query->parameters(),
     "result"        =>  $driver->fetchAll($query)
 ]);

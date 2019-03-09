@@ -13,7 +13,7 @@ $query = $driver->select()
 header('Content-Type: application/json');
 
 echo json_encode([
-    "query"         =>  $query->string(),
+    "query"         =>  $query->queryString(),
     "parameters"    =>  $query->parameters(),
     "result"        =>  $driver->fetchAll($query)
 ]);

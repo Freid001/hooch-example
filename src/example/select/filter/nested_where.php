@@ -3,7 +3,7 @@
 include __DIR__ . '/../../../setup.php';
 
 use Redstraw\Hooch\Query\Repository\Table\Table;
-use Redstraw\Hooch\Query\Sql\Statement\FilterInterface;
+use Redstraw\Hooch\Query\Statement\FilterInterface;
 
 //TBD - not working :(
 $query = $driver->select()
@@ -25,7 +25,7 @@ $query = $driver->select()
 header('Content-Type: application/json');
 
 echo json_encode([
-    "query"         =>  $query->string(),
+    "query"         =>  $query->queryString(),
     "parameters"    =>  $query->parameters(),
     "result"        =>  $driver->fetchAll($query)
 ]);

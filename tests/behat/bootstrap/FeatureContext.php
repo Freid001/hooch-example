@@ -24,42 +24,41 @@ class FeatureContext extends ApiContext
                                                                                                  
            INSERT INTO `author` (`id`, `first_name`, `last_name`) VALUES (1, 'suzanne', 'collins'),
                                                                          (2, 'douglas', 'adams'),
-                                                                         (3, 'rudyard', 'kipling'),
+                                                                         (3, 'maurice', 'sendak'),
                                                                          (4, 'pamela', 'travers'),
-                                                                         (5, 'herbert', 'wells'),
+                                                                         (5, 'clive', 'lewis'),
                                                                          (6, 'agatha', 'christie'),
                                                                          (7, 'arthur', 'doyle'),
-                                                                         (8, 'william', 'shakespeare'),
-                                                                         (9, 'jane', 'austen'),
+                                                                         (8, 'diana', 'gabaldon'),
+                                                                         (9, 'james', 'barrie'),
                                                                          (10, 'judith', 'kerr'),
                                                                          (11, 'eric', 'carle'),
                                                                          (12, 'stephen', 'king'),
-                                                                         (13, 'bram', 'stoker'),
+                                                                         (13, 'susan', 'hill'),
                                                                          (14, 'tom', 'clancy'),
                                                                          (15, 'paula', 'hawkins');
                                                                          
-           INSERT INTO `book` (`id`, `author_id`, `sequel_id`, `name`, `genre`) VALUES (1, 1, null, 'the hunger games', 'dystopia'),
-                                                                                       (2, 2, 21, 'the hitchhikers guide to the galaxy', 'fantasy'),
-                                                                                       (3, 3, null, 'the jungle book', 'children'),
-                                                                                       (4, 4, null, 'mary poppins', 'children'),
-                                                                                       (5, 5, null, 'war of the worlds', 'fantasy'),
-                                                                                       (6, 5, null, 'the time machine', 'fantasy'),
-                                                                                       (7, 2, null, 'restaurants at the end of the universe', 'fantasy'),
-                                                                                       (8, 6, 9, 'murder on the orient express', 'crime'),
-                                                                                       (9, 6, null, 'death on the nile', 'crime'),
-                                                                                       (10, 7, 11, 'a study in scarlet', 'detective'),
-                                                                                       (11, 7, null, 'the hound of the baskervilles', 'detective'),
-                                                                                       (12, 8, null, 'romeo and juliet', 'romance'),
-                                                                                       (13, 9, null, 'pride and prejudice', 'romance'),
-                                                                                       (14, 10, null, 'the tiger who came to tea', 'children'),
-                                                                                       (15, 11, null, 'the very hungry caterpillar', 'children'),
-                                                                                       (16, 12, null, 'it', 'horror'),
-                                                                                       (17, 13, null, 'dracula', 'horror'),
-                                                                                       (18, 14, null, 'the hunt for red october', 'thriller'),
-                                                                                       (19, 15, null, 'the girl on the train', 'thriller'),
-                                                                                       (20, 14, null, 'rainbow six', 'thriller'),
-                                                                                       (21, 2, 22, 'the restaurant at the end of the universe', 'fantasy'),
-                                                                                       (22, 2, null, 'so long, and thanks for all the fish', 'fantasy');");
+           INSERT INTO `book` (`id`, `author_id`, `sequel_id`, `name`, `genre`, `published`) VALUES (1, 1, null, 'the hunger games', 'dystopia', '2008-09-13'),
+                                                                                       (2, 2, 7, 'the hitchhikers guide to the galaxy', 'fantasy', '1979-10-12'),
+                                                                                       (3, 3, null, 'where the wild things are', 'children', '1963-04-09'),
+                                                                                       (4, 4, null, 'mary poppins', 'children', '1934-01-01'),
+                                                                                       (5, 5, 6, 'the magicians nephew', 'fantasy', '1955-05-02'),
+                                                                                       (6, 5, null, 'the lion the witch and the wardrobe', 'fantasy', '1950-10-16'),
+                                                                                       (7, 2, 21, 'restaurants at the end of the universe', 'fantasy', '1980-10-01'),
+                                                                                       (8, 6, 9, 'murder on the orient express', 'crime', '1934-01-01'),
+                                                                                       (9, 6, null, 'death on the nile', 'crime', '1937-11-01'),
+                                                                                       (10, 7, 11, 'the hound of the baskervilles', 'detective', '1902-04-01'),
+                                                                                       (11, 7, null, 'the valley of fear', 'detective', '1915-02-27'),
+                                                                                       (12, 8, null, 'outlander', 'romance', '1991-06-01'),
+                                                                                       (13, 9, null, 'peter pan', 'romance', '1904-12-27'),
+                                                                                       (14, 10, null, 'the tiger who came to tea', 'children', '1968-01-01'),
+                                                                                       (15, 11, null, 'the very hungry caterpillar', 'children', '1969-06-03'),
+                                                                                       (16, 12, null, 'it', 'horror', '1986-09-15'),
+                                                                                       (17, 13, null, 'the woman in black', 'horror', '1983-10-10'),
+                                                                                       (18, 14, null, 'the hunt for red october', 'thriller', '1984-10-01'),
+                                                                                       (19, 15, null, 'the girl on the train', 'thriller', '2015-01-13'),
+                                                                                       (20, 14, null, 'rainbow six', 'thriller', '1998-08-01'),
+                                                                                       (21, 2, null, 'so long, and thanks for all the fish', 'fantasy', '1984-01-01');");
         $query->execute();
     }
 
@@ -75,7 +74,7 @@ class FeatureContext extends ApiContext
             TRUNCATE TABLE `author`;
             TRUNCATE TABLE `book`;
             TRUNCATE TABLE `borrow`;
-        
+
             ALTER TABLE `customer` AUTO_INCREMENT = 1;
             ALTER TABLE `author` AUTO_INCREMENT = 1;
             ALTER TABLE `book` AUTO_INCREMENT = 1;

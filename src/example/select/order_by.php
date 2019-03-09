@@ -3,7 +3,7 @@
 include __DIR__ . '/../../setup.php';
 
 use Redstraw\Hooch\Query\Repository\Table\Table;
-use Redstraw\Hooch\Query\Sql\Sql;
+use Redstraw\Hooch\Query\Sql;
 
 $query = $driver->select()
     ->cols()
@@ -14,7 +14,7 @@ $query = $driver->select()
 header('Content-Type: application/json');
 
 echo json_encode([
-    "query"         =>  $query->string(),
+    "query"         =>  $query->queryString(),
     "parameters"    =>  $query->parameters(),
     "result"        =>  $driver->fetchAll($query)
 ]);

@@ -3,14 +3,21 @@
 include __DIR__ . '/../../setup.php';
 
 use Redstraw\Hooch\Query\Repository\Table\Table;
+use Redstraw\Hooch\Query\Field;
 
 $unionQuery = $driver->select()
-    ->cols(['first_name','last_name'])
+    ->cols([
+        Field::column('first_name'),
+        Field::column('last_name')
+    ])
     ->from(Table::make($driver)->setName("customer"))
     ->build();
 
 $query = $driver->select()
-    ->cols(['first_name','last_name'])
+    ->cols([
+        Field::column('first_name'),
+        Field::column('last_name')
+    ])
     ->from(Table::make($driver)->setName("author"))
     ->union($unionQuery)
     ->build();
@@ -18,7 +25,7 @@ $query = $driver->select()
 header('Content-Type: application/json');
 
 echo json_encode([
-    "query"         =>  $query->string(),
+    "query"         =>  $query->queryString(),
     "parameters"    =>  $query->parameters(),
     "result"        =>  $driver->fetchAll($query)
 ]);

@@ -1,9 +1,9 @@
 <?php
 
-use Redstraw\Hooch\Builder\Connection\Driver\PdoDriver;
-use Redstraw\Hooch\Query\Sql\Query;
-use Redstraw\Hooch\Query\Sql\Sql;
-use Redstraw\Hooch\Query\Sql\Accent;
+use Redstraw\Hooch\Builder\Driver\PdoDriver;
+use Redstraw\Hooch\Query\Query;
+use Redstraw\Hooch\Query\Sql;
+use Redstraw\Hooch\Query\Accent;
 use Monolog\Logger;
 
 $host=getenv("DB_HOST");
@@ -21,7 +21,7 @@ $pdo->setAttribute(PDO::ATTR_STRINGIFY_FETCHES, false);
 
 $query = new Query(
     new Sql(),
-    new Accent()
+    new Accent() //QuoteIdentifier/wrap($quote/$unquote)
 );
 
 $query->accent()->setSymbol('`');

@@ -6,9 +6,9 @@ Feature: Join
     Then the response body contains JSON:
     """
     {
-      "query":"SELECT `b`.* ,`a`.`first_name` ,`a`.`last_name` FROM `book` AS `b` INNER JOIN `author` AS `a` ON `a`.`id` = `b`.`author_id`  ",
+      "query":"SELECT `b`.`*`,`a`.`first_name`,`a`.`last_name` FROM `book` AS `b` INNER JOIN `author` AS `a` ON `a`.`id` = `b`.`author_id` ",
       "parameters":"@arrayLength(0)",
-      "result":"@arrayLength(22)"
+      "result":"@arrayLength(21)"
     }
     """
 
@@ -18,9 +18,9 @@ Feature: Join
     Then the response body contains JSON:
     """
     {
-      "query":"SELECT `b`.* ,`a`.`first_name` ,`a`.`last_name` FROM `book` AS `b` LEFT JOIN `author` AS `a` ON `a`.`id` = `b`.`author_id`  ",
+      "query":"SELECT `b`.`*`,`a`.`first_name`,`a`.`last_name` FROM `book` AS `b` LEFT JOIN `author` AS `a` ON `a`.`id` = `b`.`author_id` ",
       "parameters":"@arrayLength(0)",
-      "result":"@arrayLength(22)"
+      "result":"@arrayLength(21)"
     }
     """
 
@@ -30,9 +30,9 @@ Feature: Join
     Then the response body contains JSON:
     """
     {
-      "query":"SELECT `b`.* ,`a`.`first_name` ,`a`.`last_name` FROM `book` AS `b` JOIN `author` AS `a` ON `a`.`id` = `b`.`author_id`  ",
+      "query":"SELECT `b`.`*`,`a`.`first_name`,`a`.`last_name` FROM `book` AS `b` JOIN `author` AS `a` ON `a`.`id` = `b`.`author_id` ",
       "parameters":"@arrayLength(0)",
-      "result":"@arrayLength(22)"
+      "result":"@arrayLength(21)"
     }
     """
 
@@ -42,9 +42,9 @@ Feature: Join
     Then the response body contains JSON:
     """
     {
-      "query":"SELECT `b`.* ,`a`.`first_name` ,`a`.`last_name` FROM `book` AS `b` RIGHT JOIN `author` AS `a` ON `a`.`id` = `b`.`author_id`  ",
+      "query":"SELECT `b`.`*`,`a`.`first_name`,`a`.`last_name` FROM `book` AS `b` RIGHT JOIN `author` AS `a` ON `a`.`id` = `b`.`author_id` ",
       "parameters":"@arrayLength(0)",
-      "result":"@arrayLength(22)"
+      "result":"@arrayLength(21)"
     }
     """
 
@@ -54,8 +54,8 @@ Feature: Join
     Then the response body contains JSON:
     """
     {
-      "query":"SELECT `b`.`id` ,`b`.`name` AS book ,`bb`.`name` AS sequel FROM `book` AS `b` INNER JOIN `book` AS `bb` ON `b`.`sequel_id` = `bb`.`id`  WHERE NOT `bb`.`name` =?  ",
-      "parameters":"@arrayLength(1)",
-      "result":"@arrayLength(4)"
+      "query":"SELECT `b`.`id`,`b`.`name` AS `book`,`bb`.`name` AS `sequel` FROM `book` AS `b` INNER JOIN `book` AS `bb` ON `b`.`sequel_id` = `bb`.`id` ",
+      "parameters":"@arrayLength(0)",
+      "result":"@arrayLength(5)"
     }
     """
